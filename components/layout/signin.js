@@ -8,6 +8,7 @@ export default function Component() {
   if (session) {
     if (typeof window !== "undefined") {
       localStorage.setItem("user_email", session?.user.email);
+      localStorage.setItem("user_id", session?.user._id);
     }
 
     return (

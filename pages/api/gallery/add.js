@@ -1,6 +1,7 @@
 import { IncomingForm } from "formidable";
 import path from "path";
-import { conn } from "@/utils/dbconnection";
+import db from "@/utils/db";
+import Gallery from "@/models/Gallery";
 
 var mv = require("mv");
 
@@ -13,7 +14,7 @@ export const config = {
 const asynParse = (req) =>
   new Promise((resolve, reject) => {
     const form = new IncomingForm({ multiples: true });
-    console.log("form: ", form);
+
     form.parse(req, (err, fields, files) => {
       if (err) return reject(err);
       resolve({ fields, files });
@@ -22,7 +23,7 @@ const asynParse = (req) =>
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    console.log("req: ", req);
+    console.log("gallery add: ", req);
     const result = await asynParse(req);
     console.log("images", result);
     var _path = create_folder(result.fields.user_id);
@@ -53,23 +54,26 @@ export default async function handler(req, res) {
     var islandscape = true;
     if (dimensions.height > dimensions.width) islandscape = false;
 
-    const query2 =
-      "INSERT INTO southwind.gallery(image_name, category_id, user_id, path_original, path_reduced, description, islandscape, title, width, height) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
-    const values2 = [
-      imageName,
-      category_id,
-      user_id,
-      updatedPath,
-      updatedPath,
-      description,
-      islandscape,
-      title,
-      width,
-      height,
-    ];
-    const result2 = await conn.query(query2, values2);
+    const addPhotoToGallery = new Gallery({
+      image_name: imageName,
+      category_id: category_id,
+      user_id: user_id,
+      path_original: updatedPath,
+      path_reduced: updatedPath,
+      description: description,
+      islandscape: islandscape,
+      title: title,
+      width: width,
+      height: height,
+    });
 
-    return res.status(200).json(result2);
+    console.log("addPhotoToGallery: ", addPhotoToGallery);
+    db.connect();
+    const data = await addPhotoToGallery.save();
+
+    db.disconnect();
+
+    return res.status(200).json(data);
   }
 }
 

@@ -43,7 +43,7 @@ export default function Add(props) {
   function onSubmit(data) {
     return isAddMode
       ? createCategory(data)
-      : updateCategory(category.category_id, data);
+      : updateCategory(category._id, data);
   }
 
   function createCategory(data) {
@@ -90,11 +90,7 @@ export default function Add(props) {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="px-4 py-5 bg-white sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
-                  <input
-                    type="hidden"
-                    name="category_id"
-                    {...register("category_id")}
-                  />
+                  <input type="hidden" name="_id" {...register("_id")} />
                   <div className="col-span-6 sm:col-span-3">
                     <label className="block text-dark text-sm">
                       Category Name:
@@ -128,7 +124,7 @@ export default function Add(props) {
                       <option value=""></option>
                       {ddlist &&
                         ddlist.map((d) => (
-                          <option key={d.status_id} value={d.status_id}>
+                          <option key={d._id} value={d._id}>
                             {d.status_name}
                           </option>
                         ))}

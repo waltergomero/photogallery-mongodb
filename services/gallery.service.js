@@ -36,6 +36,7 @@ function getImageInfoById(id) {
 }
 
 function getImagesByUserId(userid, categoryid) {
+  console.log(userid, categoryid);
   return fetchWrapper.get(
     `${baseUrl}?userid=${userid}&categoryid=${categoryid}`
   );

@@ -42,7 +42,7 @@ export default function Delete(props) {
               </button>
               <span>&nbsp; </span>
               <button
-                onClick={() => handleDelete(category.category_id)}
+                onClick={() => handleDelete(category._id)}
                 className="px-6 py-1 mt-4 text-white bg-red-500 rounded-lg hover:bg-red-600"
               >
                 Delete

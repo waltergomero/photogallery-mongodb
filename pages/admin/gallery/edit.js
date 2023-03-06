@@ -21,11 +21,11 @@ export default function Edit(props) {
     imageInfo ? imageInfo.category_id : ""
   );
 
-  const [errorMessage, setErrorMessage] = useState(false);
-  const userid = userService.userValue?.user_id;
+  //const [errorMessage, setErrorMessage] = useState(false);
+  //const userid = userService.userValue?.user_id;
 
   useEffect(() => {
-    setErrorMessage(false);
+    //setErrorMessage(false);
     categoryService.getDDList().then((x) => setDDList(x));
   }, []);
 
@@ -79,7 +79,7 @@ export default function Edit(props) {
           </h5>
           <div className="mt-2 md:mt-0 md:col-span-2">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <input type="hidden" name="image_id" {...register("image_id")} />
+              <input type="hidden" name="_id" {...register("_id")} />
               <input type="hidden" name="user_id" {...register("user_id")} />
               <label className="mt-2 block text-sm font-medium text-gray-700">
                 Title:

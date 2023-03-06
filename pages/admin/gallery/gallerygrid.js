@@ -25,15 +25,10 @@ export default function GalleryGridPage() {
   };
 
   useEffect(() => {
-    const userEmail = localStorage.getItem("user_email");
-    accountService.getUserId(userEmail).then((x) => {
-      const user_id = x.user_id;
-      localStorage.setItem("user_id", user_id);
-
-      galleryService
-        .getImagesByUserId(user_id, categoryid)
-        .then((x) => setImageList(x));
-    });
+    const user_id = localStorage.getItem("user_id");
+    galleryService
+      .getImagesByUserId(user_id, categoryid)
+      .then((x) => setImageList(x));
   }, []);
 
   return (
@@ -41,7 +36,7 @@ export default function GalleryGridPage() {
       <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         {imageList &&
           imageList?.map((item) => (
-            <div key={item.image_id} className="shadow-lg rounded-lg">
+            <div key={item._id} className="shadow-lg rounded-lg">
               <div className="w-84 h-64 relative">
                 <Image
                   src={"/" + item.path_original}
@@ -60,13 +55,13 @@ export default function GalleryGridPage() {
                 </div>
                 <div className="flex flex-col xl:flex-row justify-between">
                   <Link
-                    href={`/admin/gallery/edit/${item.image_id}`}
+                    href={`/admin/gallery/edit/${item._id}`}
                     className="rounded-full py-2 px-4 text-gray-500 flex flex-row justify-center mr-1 text-sm"
                   >
                     <FaPencilAlt /> Edit
                   </Link>
                   <Link
-                    href={`/admin/gallery/delete/${item.image_id}`}
+                    href={`/admin/gallery/delete/${item._id}`}
                     className=" rounded-full py-2 px-4 text-red-500 flex flex-row justify-center text-sm"
                   >
                     <FaTrashAlt /> Delete
@@ -80,4 +75,3 @@ export default function GalleryGridPage() {
   );
 }
 GalleryGridPage.auth = true;
-GalleryGridPage.layout = "Admin";

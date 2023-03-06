@@ -1,5 +1,6 @@
 import { apiHandler } from "@/helpers/api/api-handler";
-import { conn } from "@/utils/dbconnection";
+import Gallery from "@/models/Gallery";
+import db from "@/utils/db";
 
 export default apiHandler({
   get: imageList,
@@ -7,23 +8,19 @@ export default apiHandler({
 
 async function imageList(req, res) {
   //const userid = req.query.userid;
-  const { userid, categoryid } = req.query;
+  let category_id = "0";
+  let query = "{}";
 
-  var query = "";
-  if (userid > 0) query = "SELECT * FROM southwind.gallery WHERE user_id = $1;";
-  else query = "SELECT * FROM southwind.gallery;";
+  if (req.query.categoryid != category_id) {
+    query = { user_id: req.query.userid, category_id: req.query.categoryid };
+  } else {
+    query = { user_id: req.query.userid };
+  }
+  console.log("query", query);
+  db.connect();
+  const images = await Gallery.find(query);
+  console.log("images", images);
+  db.disconnect();
 
-  const value = [userid];
-  const images = await conn.query(query, value);
-
-  return res.status(200).json(images.rows);
-
-  //    const {userid, categoryid } = req.query;
-  //    console.log("user and category ids: ", userid, categoryid);
-  //    const query = "SELECT * FROM southwind.gallery WHERE user_id LIKE $1;";
-  //    const value = [userid];
-  //    const response = await conn.query(query, value);
-  //    const data = response.rows;
-  //    console.log("images: ", data);
-  //    return res.status(200).json(data);
+  return res.status(200).json(images);
 }

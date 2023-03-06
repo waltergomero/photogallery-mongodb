@@ -1,31 +1,29 @@
-import { conn } from '@/utils/dbconnection';
+import db from "@/utils/db";
 
 export default async function handler(req, res) {
-    switch (req.method) {
-      case "GET":
-        return await imagesByCategory(req, res);
-      case "POST":
-        return await saveProduct(req, res);
-      default:
-        return res.status(400).send("Method not allowed");
-    }
+  switch (req.method) {
+    case "GET":
+      return await imagesByCategory(req, res);
+    case "POST":
+      return await saveProduct(req, res);
+    default:
+      return res.status(400).send("Method not allowed");
   }
+}
 
 async function imagesByCategory(req, res) {
-
-   var query = (`SELECT a.category_id, a.category_name, b.path_original
+  var query = `SELECT a.category_id, a.category_name, b.path_original
                     FROM (
                             SELECT c.category_id, c.category_name, MAX(image_id) as image_id 
                                 FROM southwind.gallery g INNER JOIN southwind.categories c ON g.category_id = c.category_id
                                     GROUP BY c.category_id, c.category_name) as a
                                         INNER JOIN southwind.gallery b on a.image_id = b.image_id
-                                        ORDER BY a.category_name;`);      
+                                        ORDER BY a.category_name;`;
 
-   const response = await conn.query(query);
-   const data = response.rows;
-   return res.status(200).json(data);
+  const response = await conn.query(query);
+  const data = response.rows;
+  return res.status(200).json(data);
 }
-
 
 // import { conn } from '@/utils/dbconnection';
 
@@ -43,7 +41,6 @@ async function imagesByCategory(req, res) {
 //     return res.status(200).json(response.rows);
 // }
 
-
 // export default async function handler(req, res) {
 //     switch (req.method) {
 //       case "GET":
@@ -54,7 +51,7 @@ async function imagesByCategory(req, res) {
 //         return res.status(400).send("Method not allowed");
 //     }
 //   }
-  
+
 //   const getProducts = async (req, res) => {
 //     try {
 //       console.log("hello");
@@ -64,22 +61,21 @@ async function imagesByCategory(req, res) {
 //       })
 //       console.log("passed results: ", results);
 //       return res.status(200).json(results);
-//       } 
+//       }
 //     catch (error) {
 //         console.log(error);
 //         return res.status(500).json({ error });
 //       }
 //   };
 
-
 //   const saveProduct = async (req, res) => {
 //     try {
 //       const { name, description, price } = req.body;
-  
+
 //       const result = await sql_query("INSERT INTO product SET ?", {
 //         name, description, price,
 //       });
-  
+
 //       return res.status(200).json({ ...req.body, id: result.insertId });
 //     } catch (error) {
 //       return res.status(500).json({ message: error.message });

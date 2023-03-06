@@ -14,7 +14,7 @@ export default function PhotoGalleryPage() {
       <button
         id="addphotos"
         onClick={addImageHandler}
-        className="px-6 py-1 mt-4 text-white bg-blue-500 rounded-lg hover:bg-blue-500"
+        className="px-6 py-1 text-white bg-blue-500 rounded-lg hover:bg-blue-500"
       >
         Add Photos
       </button>
@@ -25,4 +25,3 @@ export default function PhotoGalleryPage() {
   );
 }
 PhotoGalleryPage.auth = true;
-PhotoGalleryPage.layout = "Admin";

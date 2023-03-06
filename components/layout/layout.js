@@ -14,7 +14,7 @@ export default function Layout({ title, keywords, description, children }) {
       </Head>
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="flex-1 bg-gray-100">
+        <main className="flex-1 bg-gray-100 m-2">
           <Alert />
           {children}
         </main>

@@ -23,4 +23,3 @@ export async function getServerSideProps({ params }) {
   };
 }
 PreDelete.auth = true;
-PreDelete.layout = "Admin";

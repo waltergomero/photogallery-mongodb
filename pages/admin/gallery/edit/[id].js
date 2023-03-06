@@ -24,4 +24,3 @@ export async function getServerSideProps({ params }) {
   };
 }
 EditPage.auth = true;
-EditPage.layout = "Admin";

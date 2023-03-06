@@ -8,7 +8,6 @@ import axios from "axios";
 import Compressor from "compressorjs";
 import { alertService } from "@/services/alert.service";
 import { categoryService } from "@/services/category.service";
-import { userService } from "@/services/user.service";
 
 export default function Upload() {
   const router = useRouter();
@@ -17,7 +16,6 @@ export default function Upload() {
   const [ddlist, setDDList] = useState(null);
   const [selCategoryValue, setSelCategoryValue] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
-  const userid = userService.userValue?.user_id;
 
   useEffect(() => {
     setErrorMessage(false);
@@ -27,7 +25,7 @@ export default function Upload() {
   // form validation rules
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Title is required."),
-    category_id: Yup.string().required("Category selection is required."),
+    _id: Yup.string().required("Category selection is required."),
   });
 
   const formOptions = { resolver: yupResolver(validationSchema) };
@@ -57,7 +55,7 @@ export default function Upload() {
     if (compressedFile != null) {
       const formdata = new FormData();
       formdata.append("user_id", userid);
-      formdata.append("category_id", data.category_id);
+      formdata.append("category_id", data._id);
       formdata.append("title", data.title);
       formdata.append("description", data.description);
       formdata.append("image", compressedFile);
@@ -117,9 +115,9 @@ export default function Upload() {
               </div>
               <div>
                 <select
-                  name="category_id"
+                  name="_id"
                   placeholder="Select a category"
-                  {...register("category_id")}
+                  {...register("_id")}
                   className="px-4 py-1 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                   onChange={handleCategoryChange}
                   value={selCategoryValue}
@@ -127,13 +125,13 @@ export default function Upload() {
                   <option value="">Select a category</option>
                   {ddlist &&
                     ddlist.map((d) => (
-                      <option key={d.category_id} value={d.category_id}>
+                      <option key={d._id} value={d._id}>
                         {d.category_name}
                       </option>
                     ))}
                 </select>
                 <div className="invalid-feedback text-sm font-small text-red-500">
-                  {errors.category_id?.message}
+                  {errors._id?.message}
                 </div>
               </div>
 
@@ -193,4 +191,3 @@ export default function Upload() {
   );
 }
 Upload.auth = true;
-Upload.layout = "Admin";
