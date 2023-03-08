@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
 async function getRandomImages(req, res) {
   db.connect();
-  const images = await Gallery.find({});
+  const images = await  Gallery.aggregate([ { $sample: { size: 20 } } ]); 
   db.disconnect();
   // const data = await Gallery.aggregate([
   //   {
