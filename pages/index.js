@@ -13,7 +13,7 @@ export default function HomePage() {
   const [imageList, setImageList] = useState(null);
 
   useEffect(() => {
-    //frontService.getRandomImages().then((x) => setImageList(x));
+    frontService.getRandomImages().then((x) => setImageList(x));
   }, []);
 
   console.log("Index Page On refresh: ", imageList);

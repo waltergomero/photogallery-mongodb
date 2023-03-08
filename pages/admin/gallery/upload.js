@@ -15,6 +15,7 @@ export default function Upload() {
   const [compressedFile, setCompressedFile] = useState(null);
   const [ddlist, setDDList] = useState(null);
   const [selCategoryValue, setSelCategoryValue] = useState("");
+  const [selCategoryName, setSelCategoryName] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
 
   useEffect(() => {
@@ -52,10 +53,13 @@ export default function Upload() {
 
   async function onSubmit(data) {
     const userid = localStorage.getItem("user_id");
+    const email = localStorage.getItem("email");
     if (compressedFile != null) {
       const formdata = new FormData();
       formdata.append("user_id", userid);
-      formdata.append("category_id", data._id);
+      formdata.append("email", email);
+      formdata.append("category_id", selCategoryValue);
+      formdata.append("category_name", selCategoryName);
       formdata.append("title", data.title);
       formdata.append("description", data.description);
       formdata.append("image", compressedFile);
@@ -77,6 +81,7 @@ export default function Upload() {
   };
 
   const handleCategoryChange = (e) => {
+    setSelCategoryName(e.target.options[e.target.selectedIndex].text);
     setSelCategoryValue(e.target.value);
   };
 
@@ -103,7 +108,7 @@ export default function Upload() {
                 <input
                   name="title"
                   {...register("title")}
-                  maxLength="32"
+                  maxLength="48"
                   type="text"
                   placeholder="Title"
                   className={`w-full px-4 py-1 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600

@@ -1,18 +1,31 @@
-import { conn } from '@/utils/dbconnection';
+import Category from "@/models/Category";
+import Gallery from "@/models/Gallery";
+import db from "@/utils/db";
 
 export default async function handler(req, res) {
-    switch (req.method) {
-      case "GET":
-        return await getRandomImages(req, res);
-      default:
-        return res.status(400).send("Method not allowed");
-    }
+  switch (req.method) {
+    case "GET":
+      return await getRandomImages(req, res);
+    default:
+      return res.status(400).send("Method not allowed");
   }
+}
 
 async function getRandomImages(req, res) {
-    const response = await conn.query(`SELECT g.image_id, g.image_name, g.category_id, g.path_original, c.category_name 
-                                        FROM southwind.gallery g INNER JOIN southwind.categories c ON g.category_id = c.category_id
-                                        ORDER BY random() LIMIT 20;`);
-    const data = response.rows;
-     return res.status(200).json(data);
+  db.connect();
+
+  const data = await Gallery.aggregate([
+    {
+      $lookup: {
+        from: "categories", //collection to join
+        localField: "category_id", //field from the input document (gallery)
+        foreignField: "_id", //field from the documents of the "from" collection
+        as: "category_info", //output array field
+      },
+    },
+  ]);
+
+  console.log("data: ", data);
+
+  return res.status(200).json(data);
 }

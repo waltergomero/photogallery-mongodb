@@ -4,7 +4,11 @@ const categorySchema = new mongoose.Schema(
   {
     category_name: { type: String, required: true, unique: true },
     parent_category_id: { type: String, required: false },
-    status_id: { type: String, required: true },
+    status_id: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Status",
+      required: true,
+    },
     notes: { type: String, required: false },
   },
   {

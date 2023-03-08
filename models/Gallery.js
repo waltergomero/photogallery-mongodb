@@ -3,8 +3,14 @@ import mongoose from "mongoose";
 const gallerySchema = new mongoose.Schema(
   {
     image_name: { type: String, required: true },
-    category_id: { type: String, required: true },
-    user_id: { type: String, required: true },
+    category_id: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Category",
+      required: true,
+    },
+    category_name: { type: String, required: true },
+    user_id: { type: mongoose.Schema.ObjectId, ref: "User", required: true },
+    email: { type: String, required: true },
     path_original: { type: String, required: true },
     path_reduced: { type: String, required: true },
     description: { type: String, required: false },

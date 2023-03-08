@@ -37,7 +37,7 @@ export default function GalleryGridPage() {
         {imageList &&
           imageList?.map((item) => (
             <div key={item._id} className="shadow-lg rounded-lg">
-              <div className="w-84 h-64 relative">
+              <div className="w-84 h-72 relative">
                 <Image
                   src={"/" + item.path_original}
                   fill

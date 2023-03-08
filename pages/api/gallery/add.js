@@ -29,7 +29,9 @@ export default async function handler(req, res) {
     var _path = create_folder(result.fields.user_id);
 
     const user_id = result.fields.user_id;
+    const email = result.fields.email;
     const category_id = result.fields.category_id;
+    const category_name = result.fields.category_name;
     const title = result.fields.title;
     const description = result.fields.description;
     const preImageName = result.files.image.originalFilename;
@@ -57,7 +59,9 @@ export default async function handler(req, res) {
     const addPhotoToGallery = new Gallery({
       image_name: imageName,
       category_id: category_id,
+      category_name: category_name,
       user_id: user_id,
+      email: email,
       path_original: updatedPath,
       path_reduced: updatedPath,
       description: description,
