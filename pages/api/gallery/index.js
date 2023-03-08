@@ -16,10 +16,10 @@ async function imageList(req, res) {
   } else {
     query = { user_id: req.query.userid };
   }
-  console.log("query", query);
+
   db.connect();
   const images = await Gallery.find(query);
-  console.log("images", images);
+
   db.disconnect();
 
   return res.status(200).json(images);
