@@ -25,7 +25,7 @@ export default function Layout({ title, keywords, description, children }) {
 }
 
 Layout.defaultProps = {
-  title: "Welcome to WALT photo gallery",
+  title: "Khasqui Gallery",
   keywords: "images, photos, photogallery, imagegallery",
   description: "The best place to view great images",
 };

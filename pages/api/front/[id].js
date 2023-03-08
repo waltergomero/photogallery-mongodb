@@ -1,4 +1,5 @@
 import db from "@/utils/db";
+import Gallery from "@/models/Gallery";
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -10,11 +11,9 @@ export default async function handler(req, res) {
 }
 
 async function getImagesByCategoryId(req, res) {
-  const category_id = req.query.id;
-  const query = "SELECT * FROM southwind.gallery WHERE category_id = $1;";
-  const value = [category_id];
-
-  const response = await conn.query(query, value);
-  const data = response.rows;
+  const query = {category_id: req.query.id};
+  db.connect();
+  const data = await Gallery.find(query) //"SELECT * FROM southwind.gallery WHERE category_id = $1;";
+  db.disconnect();
   return res.status(200).json(data);
 }
