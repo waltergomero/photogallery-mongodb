@@ -23,7 +23,7 @@ export default function ByCategories(props) {
                   <Image
                     alt={item.category_name}
                     className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110 cursor-pointer"
-                    src={"/" + item.path_original}
+                    src={"/" + item.image_url}
                     width={720}
                     height={480}
                     sizes="(max-width: 640px) 100vw,

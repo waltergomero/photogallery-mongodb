@@ -1,4 +1,5 @@
 import db from "@/utils/db";
+import Collection from "@/models/Collection";
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -12,16 +13,17 @@ export default async function handler(req, res) {
 }
 
 async function imagesByCategory(req, res) {
-  var query = `SELECT a.category_id, a.category_name, b.path_original
-                    FROM (
-                            SELECT c.category_id, c.category_name, MAX(image_id) as image_id 
-                                FROM southwind.gallery g INNER JOIN southwind.categories c ON g.category_id = c.category_id
-                                    GROUP BY c.category_id, c.category_name) as a
-                                        INNER JOIN southwind.gallery b on a.image_id = b.image_id
-                                        ORDER BY a.category_name;`;
+  const query = {};
+  const projection = {
+    createdAt: 0,
+    updatedAt: 0,
+    __v: 0,
+  };
 
-  const response = await conn.query(query);
-  const data = response.rows;
+  db.connect();
+  const data = await Collection.find(query, projection);
+  db.disconnect();
+  console.log("data collected: ", data);
   return res.status(200).json(data);
 }
 

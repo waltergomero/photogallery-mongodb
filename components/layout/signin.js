@@ -17,12 +17,29 @@ export default function Component() {
           "loading"
         ) : session?.user ? (
           <>
-            <Link className="text-white mr-2" href="/api/auth/signout">
-              Welcome {session?.user.first_name}!
-            </Link>
-            <Link className="text-white" href="/api/auth/signout">
-              Sign Out
-            </Link>
+            <li className="mt-3 md:mt-0 md:ml-6">
+              <Link href="/admin/status" className="block text-white">
+                Status
+              </Link>
+            </li>
+            <li className="mt-3 md:mt-0 md:ml-6">
+              <Link href="/admin/category" className="block text-white">
+                Category
+              </Link>
+            </li>
+            <li className="mt-3 md:mt-0 md:ml-6">
+              <Link href="/admin/gallery" className="block text-white">
+                Gallery
+              </Link>
+            </li>
+            <li>
+              <Link className="text-white mr-2" href="/api/auth/signout">
+                Welcome {session?.user.first_name}!
+              </Link>
+              <Link className="text-white" href="/api/auth/signout">
+                Sign Out
+              </Link>
+            </li>
           </>
         ) : (
           ""
@@ -30,8 +47,14 @@ export default function Component() {
       </>
     );
   } else {
-    <Link className="text-white" href="/account/signin">
-      Sign In
-    </Link>;
+    return (
+      <>
+        <li className="mt-3 md:mt-0 md:ml-6">
+          <Link className="text-white" href="/account/signin">
+            Sign In
+          </Link>
+        </li>
+      </>
+    );
   }
 }

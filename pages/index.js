@@ -4,13 +4,23 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { frontService } from "@/services/front.service";
-import Bridge from "@/components/Icons/Bridge";
-import Logo from "@/components/Icons/Logo";
+import LightGallery from "lightgallery/react";
+import lgZoom from "lightgallery/plugins/zoom";
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
+
+import lgThumbnail from "lightgallery/plugins/thumbnail";
+import Thumbnail from "lightgallery/plugins/thumbnail";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function HomePage() {
   const [imageList, setImageList] = useState(null);
+
+  const onInit = () => {
+    console.log("lightGallery has been initialized");
+  };
 
   useEffect(() => {
     frontService.getRandomImages().then((x) => setImageList(x));
@@ -29,44 +39,49 @@ export default function HomePage() {
               <span className="absolute left-0 right-0 bottom-0 h-[400px] bg-gradient-to-b from-black/0 via-black to-black"></span>
             </div>
 
-            <h1 className="mt-8 mb-4 text-base font-bold uppercase tracking-widest">
-              2022 Event Photos
+            <h1 className="mt-8 mb-4 text-base text-gray-500 font-bold uppercase tracking-widest">
+              Life events photos
             </h1>
-            <p className="max-w-[40ch] text-white/75 sm:max-w-[32ch]">
-              Our incredible Next.js community got together in San Francisco for
-              our first ever in-person conference!
+            <p className="max-w-[40ch] text-gray-500 sm:max-w-[32ch]">
+              Just remember "Attitude is Everything..."
             </p>
-            <span
-              className=" z-10 mt-6 rounded-lg border border-gray-900 bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-200 transition hover:bg-white/10 hover:text-white md:mt-4"
-              href="https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-cloudinary&project-name=nextjs-image-gallery&repository-name=with-cloudinary&env=NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET,CLOUDINARY_FOLDER&envDescription=API%20Keys%20from%20Cloudinary%20needed%20to%20run%20this%20application"
-              target="_blank"
+            <a
+              className=" z-10 mt-6 rounded-lg border border-gray-900 bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-200 transition hover:bg-gray-900 hover:text-white md:mt-4"
+              href="/bycategories"
               rel="noreferrer"
             >
-              Life events photos
-            </span>
+              View photos by categories
+            </a>
           </div>
-          {imageList &&
-            imageList?.map((item) => (
-              <Link
-                key={item.image_id}
-                href={`/imagesbycategory?id=${item.category_id}`}
-                shallow
-                className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
-              >
-                <Image
-                  alt={item.category_name}
-                  className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110 cursor-pointer"
-                  style={{ transform: "translate3d(0, 0, 0)" }}
-                  src={"/" + item.path_original}
-                  width={720}
-                  height={480}
-                  sizes="(max-width: 640px) 100vw,
+          <LightGallery
+            mode="lg-fade"
+            onInit={onInit}
+            speed={500}
+            plugins={[Thumbnail, lgZoom]}
+          >
+            {imageList &&
+              imageList?.map((item) => (
+                <a
+                  key={item._id}
+                  href={"/" + item.path_original}
+                  shallow
+                  className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                >
+                  <Image
+                    alt={item.category_name}
+                    className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110 cursor-pointer"
+                    style={{ transform: "translate3d(0, 0, 0)" }}
+                    src={"/" + item.path_original}
+                    width={item.width}
+                    height={item.height}
+                    sizes="(max-width: 640px) 100vw,
                   (max-width: 1280px) 50vw,
                   (max-width: 1536px) 33vw,
                   25vw"
-                />
-              </Link>
-            ))}
+                  />
+                </a>
+              ))}
+          </LightGallery>
         </div>
       </main>
     </>

@@ -12,9 +12,9 @@ export default function Header() {
         <div className="flex items-center">
           <Link
             href="/"
-            className="text-lg md:text-xl font-bold ml-3 text-white"
+            className="text-lg md:text-3xl font-bold ml-3 text-white"
           >
-            Photo Gallery
+            Kuntur Gallery
           </Link>
         </div>
 
@@ -38,23 +38,22 @@ export default function Header() {
             mobileMenuIsOpen ? `block` : `hidden`
           )}
         >
-          {[
-            { title: "Home", route: "/" },
-            { title: "About", route: "/about" },
-            { title: "By Categories", route: "/bycategories" },
-            { title: "Gallery", route: "/admin/gallery" },
-            { title: "Categories", route: "/admin/category" },
-            { title: "Status", route: "/admin/status" },
-          ].map(({ route, title }) => (
-            <li className="mt-3 md:mt-0 md:ml-6" key={title}>
-              <Link href={route} className="block text-white">
-                {title}
-              </Link>
-            </li>
-          ))}
           <li className="mt-3 md:mt-0 md:ml-6">
-            <SignIn />
+            <Link href="/" className="block text-white">
+              Home
+            </Link>
           </li>
+          <li className="mt-3 md:mt-0 md:ml-6">
+            <Link href="/about" className="block text-white">
+              About
+            </Link>
+          </li>
+          <li className="mt-3 md:mt-0 md:ml-6">
+            <Link href="/bycategories" className="block text-white">
+              Collection
+            </Link>
+          </li>
+          <SignIn />
         </ul>
       </div>
     </header>

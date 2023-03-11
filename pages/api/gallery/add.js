@@ -2,6 +2,7 @@ import { IncomingForm } from "formidable";
 import path from "path";
 import db from "@/utils/db";
 import Gallery from "@/models/Gallery";
+import Collection from "@/models/Collection";
 
 var mv = require("mv");
 
@@ -23,9 +24,7 @@ const asynParse = (req) =>
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    console.log("gallery add: ", req);
     const result = await asynParse(req);
-    console.log("images", result);
     var _path = create_folder(result.fields.user_id);
 
     const user_id = result.fields.user_id;
@@ -56,6 +55,10 @@ export default async function handler(req, res) {
     var islandscape = true;
     if (dimensions.height > dimensions.width) islandscape = false;
 
+    const categoryExistsInCollection = await checkIfCategoryExistsInCollection(
+      category_id
+    );
+
     const addPhotoToGallery = new Gallery({
       image_name: imageName,
       category_id: category_id,
@@ -71,14 +74,38 @@ export default async function handler(req, res) {
       height: height,
     });
 
-    console.log("addPhotoToGallery: ", addPhotoToGallery);
+    const addCategoryToCollection = new Collection({
+      category_id: category_id,
+      category_name: category_name,
+      image_url: updatedPath,
+    });
+
     db.connect();
     const data = await addPhotoToGallery.save();
 
-    db.disconnect();
+    //add-update category into collection
+    if (categoryExistsInCollection) {
+      const query = {
+        category_name: category_name,
+        image_url: updatedPath,
+      };
+      await Collection.updateOne({ category_id: category_id }, query);
+    } else {
+      await addCategoryToCollection.save();
+    }
 
+    db.disconnect();
     return res.status(200).json(data);
   }
+}
+
+async function checkIfCategoryExistsInCollection(_category_id) {
+  const query = { category_id: _category_id };
+  const projection = { category_id: 1 };
+  return await Collection.findOne(query, projection).then((result) => {
+    const data = JSON.parse(JSON.stringify(result));
+    return Promise.resolve(data);
+  });
 }
 
 function create_folder(userid) {

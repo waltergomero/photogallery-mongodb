@@ -50,6 +50,13 @@ const data = {
       height: 967,
     },
   ],
+  collection: [
+    {
+      category_id: "6407da9d1c0994d76e38072d",
+      category_name: "Ausangate Mountain",
+      image_url: "gallery/6407d9f21c0994d76e380725/1678244219992.JPG",
+    },
+  ],
 };
 
 export default data;
