@@ -21,9 +21,7 @@ export default function Edit(props) {
     imageInfo ? imageInfo.category_id : ""
   );
 
-  //const [errorMessage, setErrorMessage] = useState(false);
-  //const userid = userService.userValue?.user_id;
-
+ 
   useEffect(() => {
     //setErrorMessage(false);
     categoryService.getDDList().then((x) => setDDList(x));
@@ -47,7 +45,7 @@ export default function Edit(props) {
 
   async function onSubmit(data) {
     return galleryService
-      .update(data.image_id, data)
+      .update(data._id, data)
       .then(() => {
         alertService.success("Image information was updated successful", {
           keepAfterRouteChange: true,
@@ -57,11 +55,8 @@ export default function Edit(props) {
       .catch(alertService.error);
   }
 
-  const handleDelete = (id) => {
-    router.push(`/admin/gallery/delete/${id}`);
-  };
-
   const handleCategoryChange = (e) => {
+    console.log("category info: ", e.target)
     setSelCategoryValue(e.target.value);
   };
 
@@ -109,7 +104,7 @@ export default function Edit(props) {
                 <option value=""></option>
                 {ddlist &&
                   ddlist.map((d) => (
-                    <option key={d.category_id} value={d.category_id}>
+                    <option key={d._id} value={d._id}>
                       {d.category_name}
                     </option>
                   ))}

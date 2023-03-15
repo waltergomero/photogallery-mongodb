@@ -51,7 +51,7 @@ export default function Delete(props) {
                 </button>
                 <span>&nbsp; </span>
                 <button
-                  onClick={() => handleDelete(imageInfo.image_id)}
+                  onClick={() => handleDelete(imageInfo._id)}
                   className="px-6 py-1 text-white bg-red-500 rounded-lg hover:bg-red-600"
                 >
                   Delete

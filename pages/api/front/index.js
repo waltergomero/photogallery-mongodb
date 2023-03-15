@@ -12,18 +12,9 @@ export default async function handler(req, res) {
 
 async function getRandomImages(req, res) {
   db.connect();
-  const images = await  Gallery.aggregate([ { $sample: { size: 20 } } ]); 
+  //const images = await  Gallery.aggregate([ { $sample: { size: 20 } } ]); 
+  const images = await Gallery.find().sort({_id:-1}).limit(10);
   db.disconnect();
-  // const data = await Gallery.aggregate([
-  //   {
-  //     $lookup: {
-  //       from: "categories", //collection to join
-  //       localField: "category_id", //field from the input document (gallery)
-  //       foreignField: "_id", //field from the documents of the "from" collection
-  //       as: "category_info", //output array field
-  //     },
-  //   },
-  // ]);
 
   return res.status(200).json(images);
 }

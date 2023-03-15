@@ -30,8 +30,8 @@ export default function HomePage() {
   return (
     <>
       <main className="mx-auto max-w-[1960px] p-1">
-        <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4">
-          <div className="after:content relative mb-5 flex h-[570px] flex-col items-center justify-end gap-4 overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
+        <div className="columns-1 gap-2 sm:columns-2 xl:columns-3 2xl:columns-4">
+          <div className="after:content relative mb-2 flex h-[550px] flex-col items-center justify-end overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
             <div className="absolute inset-0 flex items-center justify-center opacity-30">
               <span className="flex max-h-full max-w-full items-center justify-center">
                 <Image src="/indian.jpg" width={736} height={832} />
@@ -40,7 +40,7 @@ export default function HomePage() {
             </div>
 
             <h1 className="mt-8 mb-4 text-base text-gray-500 font-bold uppercase tracking-widest">
-              Life events photos
+              Life event photos
             </h1>
             <p className="max-w-[40ch] text-gray-500 sm:max-w-[32ch]">
               Just remember "Attitude is Everything..."
@@ -65,7 +65,7 @@ export default function HomePage() {
                   key={item._id}
                   href={"/" + item.path_original}
                   shallow
-                  className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                  className="after:content group relative mb-2 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                 >
                   <Image
                     alt={item.category_name}

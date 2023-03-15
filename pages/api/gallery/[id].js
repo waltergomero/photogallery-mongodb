@@ -1,5 +1,5 @@
 import { apiHandler} from '@/helpers/api/api-handler';
-import { conn } from '@/utils/dbconnection';
+import db from '@/utils/db';
 
 export default apiHandler({
     get: getImagesByUserId,
@@ -16,7 +16,7 @@ async function getImagesByUserId(req, res) {
         query = "SELECT * FROM southwind.gallery;";
 
     const value = [userid];
-    const images = await conn.query(query, value);
+    const images = await db.query(query, value);
 
     return res.status(200).json(images.rows);
 }
@@ -32,7 +32,7 @@ async function update(req, res) {
     // validate
     const query = "UPDATE southwind.gallery SET title = $1, category_id = $2, description = $3, user_id = $4 WHERE image_id = $5";
     const value = [title, category_id, description, user_id, image_id];
-    const results = await conn.query(query, value);
+    const results = await db.query(query, value);
     return res.status(200).json(results.rows);
 }
 
@@ -40,7 +40,7 @@ async function _delete(req, res) {
     const image_id = req.query.id;
     const query = "DELETE FROM southwind.gallery  WHERE image_id = $1 ";
     const value = [image_id];
-    const delete_image = await conn.query(query, value);
+    const delete_image = await db.query(query, value);
 
     return res.status(200).json({});
 }

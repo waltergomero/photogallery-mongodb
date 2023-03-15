@@ -43,12 +43,13 @@ function getImagesByUserId(userid, categoryid) {
 }
 
 function update(id, params) {
-  return fetchWrapper.put(`${baseUrl}/${id}`, params).then((x) => {
+  console.log("galler srrtvice: ", id, params)
+  return fetchWrapper.put(`${baseUrl}/editdelete/${id}`, params).then((x) => {
     return x;
   });
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
 function _delete(id) {
-  return fetchWrapper.delete(`${baseUrl}/${id}`);
+  return fetchWrapper.delete(`${baseUrl}/editdelete/${id}`);
 }

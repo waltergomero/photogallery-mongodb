@@ -23,7 +23,6 @@ async function getById(req, res) {
 }
 
 async function update(req, res) {
-  console.log("update ", req.body);
   db.connect();
   // check if status and type already exists
   const statusExists = await checkIfStatusExists(
@@ -41,7 +40,6 @@ async function update(req, res) {
     status_name: req.body.status_name,
     status_typeid: req.body.status_typeid,
   };
-  console.log("update ", query);
   const result = await Status.updateOne({ _id: req.body._id }, query);
 
   db.disconnect();

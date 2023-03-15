@@ -33,7 +33,7 @@ export default function Component() {
               </Link>
             </li>
             <li>
-              <Link className="text-white mr-2" href="/api/auth/signout">
+              <Link className="text-white mr-2 ml-6" href="/api/auth/signout">
                 Welcome {session?.user.first_name}!
               </Link>
               <Link className="text-white" href="/api/auth/signout">
