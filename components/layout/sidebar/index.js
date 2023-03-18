@@ -1,10 +1,11 @@
 import React, { Fragment } from "react";
-import { useState } from "react";
-import { signOut } from "next-auth/react";
+import { useState, useEffect } from "react";
+
 import {
   BsArrowLeftShort,
   BsChevronDown,
   BsFillImageFill,
+  BsHouseDoor,
   BsReverseLayoutTextSidebarReverse,
 } from "react-icons/bs";
 import {
@@ -63,7 +64,7 @@ export default function Sidebar() {
   return (
     <div
       className={`sticky top-0 bg-red-500 h-screen p-5 pt-8 ${
-        open ? "w-52" : "w-20"
+        open ? "w-60" : "w-20"
       } duration-300 relative `}
     >
       <BsArrowLeftShort
@@ -72,25 +73,29 @@ export default function Sidebar() {
         ${!open && "rotate-180"}`}
         onClick={handleClick}
       />
+       <Link href="/">
       <div className="inline-flex">
-        <AiFillEnvironment className="bg-amber-300 text-4xl rounded cursor-pointer block float-left mr-2" />
+       
+        <BsHouseDoor className="text-white text-3xl rounded cursor-pointer block float-left ml-3 mr-2" />
         <h1
-          className={`text-white origin-left font-medium text-xl duration-300 ${
+          className={`text-white origin-left font-medium text-lg duration-300 ${
             !open && "scale-0"
           }`}
         >
-          Photo Gallery
+          Admin Page
         </h1>
+      
       </div>
-      <ul className="pt-2">
+      </Link>
+      <ul className="pt-6">
         {Menus.map((menu, index) => (
           <Fragment key={index}>
             <li>
               <Link
                 href={`${menu.path}`}
                 alt=""
-                className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-1 hover:bg-red-600 
-                            rounded-md ${menu.spacing ? "mt-9" : "mt-2"} 
+                className={`flex rounded-md p-2 cursor-pointer hover:bg-red-600 text-white text-sm  items-center gap-x-4  
+                             ${menu.spacing ? "mt-9" : "mt-2"} 
                                        ${
                                          router.asPath == menu.path &&
                                          "bg-red-600 text-white"
@@ -100,7 +105,7 @@ export default function Sidebar() {
                   {menu.icon ? menu.icon : <RiDashboardFill />}
                 </span>
                 <span
-                  className={`text-base font-small flex-1 duration-300 ${
+                  className={`text-sm flex-1 duration-300 ${
                     !open && "hidden"
                   }`}
                 >
@@ -135,20 +140,7 @@ export default function Sidebar() {
           </Fragment>
         ))}
       </ul>
-      <ul className="pt-2">
-        <li className="flex rounded-md p-2 cursor-pointer hover:bg-red-600 text-gray-100 text-sm items-center gap-x-4">
-          <AiOutlineLogout />
-          <Link href="/" className="flex-1" onClick={() => signOut()}>
-            <span
-              className={` text-base font-small flex-1 duration-300 ${
-                !open && "hidden "
-              }`}
-            >
-              Log Out
-            </span>
-          </Link>
-        </li>
-      </ul>
+
     </div>
   );
 }
