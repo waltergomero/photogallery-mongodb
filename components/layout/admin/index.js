@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Sidebar from '../sidebar/index';
+import { Alert } from "@/components/Alert";
 
 export default function AdminLayout({
   title,
@@ -18,6 +19,7 @@ export default function AdminLayout({
       <div className="flex">
         <Sidebar />
         <div className="flex-1 border-2 border-blue-100">
+        <Alert />
           {children}
         </div>
       </div>

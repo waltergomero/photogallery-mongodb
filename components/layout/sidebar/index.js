@@ -6,16 +6,11 @@ import {
   BsChevronDown,
   BsFillImageFill,
   BsHouseDoor,
-  BsReverseLayoutTextSidebarReverse,
 } from "react-icons/bs";
 import {
-  AiFillEnvironment,
   AiOutlineBarChart,
   AiOutlineFileText,
-  AiOutlineLogout,
-  AiOutlineMail,
 } from "react-icons/ai";
-import { MdLogout } from "react-icons/md";
 import { RiDashboardFill } from "react-icons/ri";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -73,7 +68,7 @@ export default function Sidebar() {
         ${!open && "rotate-180"}`}
         onClick={handleClick}
       />
-       <Link href="/">
+       <Link href="/admin">
       <div className="inline-flex">
        
         <BsHouseDoor className="text-white text-3xl rounded cursor-pointer block float-left ml-3 mr-2" />
