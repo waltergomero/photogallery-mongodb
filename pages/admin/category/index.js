@@ -12,10 +12,13 @@ export default function CategoryPage() {
     categoryService.getAll().then((x) => setCategories(x));
   }, []);
 
-  let categoryContent = <p className="p-2">No records were found.</p>;
+  let categoryContent = "";
 
   if (categories && categories.length > 0) {
     categoryContent = <CategoryTable data={categories} />;
+  }
+  else{
+    categoryContent = <p className="p-2">No records were found.</p>;
   }
   return (
     <>

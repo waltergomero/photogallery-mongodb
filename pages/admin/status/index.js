@@ -12,10 +12,13 @@ export default function StatusPage(props) {
     statusService.getAll().then((x) => setStatus(x));
   }, []);
 
-  let statusContent = <p className="p-2">No records were found.</p>;
+  let statusContent = "";
 
   if (status && status.length > 0) {
     statusContent = <StatusTable data={status} />;
+  }
+  else{
+    statusContent = <p className="p-2">No records were found.</p>
   }
   return (
     <>

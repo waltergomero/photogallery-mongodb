@@ -1,6 +1,7 @@
 import Head from "next/head";
 import NavBar from "../navbar";
 import Footer from "../footer";
+import { Alert } from "@/components/Alert";
 
 export default function Layout({ title, keywords, description, children }) {
   return (
@@ -14,6 +15,7 @@ export default function Layout({ title, keywords, description, children }) {
       <div className="flex flex-col min-h-screen">
         <NavBar />
         <main className="flex-1 bg-gray-100">
+        <Alert />
           {children}
         </main>
         <Footer />

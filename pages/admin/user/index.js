@@ -11,10 +11,13 @@ export default function UserPage() {
     userService.getAll().then((x) => setUsers(x));
   }, []);
 
-  let userContent = <p className="p-2">No records were found.</p>;
+  let userContent = "";
 
   if (users && users.length > 0) {
     userContent = <UserTablePage data={users} />;
+  }
+  else{
+    userContent = <p className="p-2">No records were found.</p>;
   }
 
   return (
