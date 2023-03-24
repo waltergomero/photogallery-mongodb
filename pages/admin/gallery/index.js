@@ -24,4 +24,5 @@ export default function PhotoGalleryPage() {
     </>
   );
 }
+PhotoGalleryPage.layout = "Admin";
 PhotoGalleryPage.auth = true;

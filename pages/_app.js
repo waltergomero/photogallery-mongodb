@@ -1,24 +1,50 @@
 import '@/styles/globals.css'
-import Layout from '../components/Layout/main';
+import AdminLayout from '@/components/layout/admin';
+import Layout from '@/components/layout/main';
 
-export default function MyApp({ Component, pageProps }) {
-  const renderWithLayout =
-    Component.getLayout ||
-    function (page) {
-      return <Layout>{page}</Layout>;
-    };
+import { SessionProvider, useSession} from "next-auth/react";
 
-  return renderWithLayout(<Component {...pageProps} />);
+const layouts = { Main : Layout,  Admin: AdminLayout,};
+
+export default function App({Component,  pageProps: { session, ...pageProps },}) {
+  const Layout = layouts[Component.layout] || ((children) => <>{children}</>);
+  return (
+    <SessionProvider session={session}>
+      <Layout>
+      {Component.auth ? (
+         <Auth>
+          <Component {...pageProps} />
+         </Auth>
+      ) : (
+        <Component {...pageProps} />
+      )}
+      </Layout>
+    </SessionProvider>
+  )
+}
+
+function Auth({ children }) {
+  // if `{ required: true }` is supplied, `status` can only be "loading" or "authenticated"
+  const { status } = useSession({ required: true })
+
+  if (status === "loading") {
+    return <div>Loading...</div>
+  }
+
+  return children
 }
 
 // import '@/styles/globals.css'
-// import AdminLayout from '../components/layout/admin'
-// import MainLayout from '../components/layout/main'
+// import Layout from '@/components/Layout/main';
+// import AdminLayout from '@/components/layout/admin';
+// import { SessionProvider} from "next-auth/react";
 
-// export default function App({ Component, pageProps }) {
+// export default function App({ Component, pageProps: { session, ...pageProps }  }) {
 //   return (
-//  <MainLayout>
+//     <SessionProvider session={session}>
+//  <Layout>
 //     <Component {...pageProps} />
-//   </MainLayout>
+//   </Layout>
+//   </SessionProvider>
 //   )
 // }

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import AdminLayout from "@/components/layout/admin";
 
 export default function UserTablePage(props) {
   const users = props.data;
@@ -60,7 +59,7 @@ export default function UserTablePage(props) {
                     {u.isAdmin === true? "Yes" : "No"}
                   </td>
                   <td className="text-sm text-gray-900  px-6 py-1 whitespace-nowrap border-r">
-                    <Link
+                    <Link 
                       href={`/admin/user/edit/${u._id}`}
                       className="px-4 py-1 bg-blue-500 text-white font-medium text-xs  rounded"
                     >
@@ -83,8 +82,6 @@ export default function UserTablePage(props) {
   );
 }
 
-UserTablePage.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+UserTablePage.layout = "Admin";
 UserTablePage.auth = true;
 

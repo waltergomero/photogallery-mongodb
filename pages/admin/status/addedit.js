@@ -5,7 +5,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { alertService } from "@/services/alert.service";
 import { statusService } from "@/services/status.service";
-import AdminLayout from "@/components/layout/admin";
 
 export default function AddEditPage(props) {
   const status = props?.status;
@@ -161,7 +160,5 @@ export default function AddEditPage(props) {
     </>
   );
 }
-AddEditPage.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+AddEditPage.layout = "Admin";
 AddEditPage.auth = true;

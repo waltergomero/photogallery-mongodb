@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
+import SignIn from './signin';
 
 import {
   BsArrowLeftShort,
@@ -130,10 +131,15 @@ export default function Sidebar() {
                     </Link>
                   </li>
                 ))}
+                
               </ul>
+              
             )}
+   
           </Fragment>
+          
         ))}
+        <SignIn/>
       </ul>
 
     </div>

@@ -3,7 +3,6 @@ import { Spinner } from "@/components/Spinner";
 import { alertService } from "@/services/alert.service";
 import { statusService } from "@/services/status.service";
 import Delete from "../delete";
-import AdminLayout from "@/components/layout/admin";
 
 export default function DeletePage({ id }) {
   const [status, setStatus] = useState(null);
@@ -24,7 +23,5 @@ export async function getServerSideProps({ params }) {
   };
 }
 
-DeletePage.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+DeletePage.layout = "Admin";
 DeletePage.auth = true;

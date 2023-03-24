@@ -74,4 +74,5 @@ export default function GalleryGridPage() {
     </>
   );
 }
+GalleryGridPage.layout = "Admin";
 GalleryGridPage.auth = true;

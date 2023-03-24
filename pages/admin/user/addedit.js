@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { alertService } from "@/services/alert.service";
 import { userService } from "@/services/user.service";
-import AdminLayout from "@/components/layout/admin";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -233,6 +232,5 @@ export default function AddEditUserPage(props) {
   );
 }
 
-AddEditUserPage.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+
+AddEditUserPage.layout = "Admin";

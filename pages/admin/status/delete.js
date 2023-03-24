@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { statusService } from "@/services/status.service";
-import AdminLayout from "@/components/layout/admin";
 
 export default function Delete(props) {
   const _status = props?.status;
@@ -55,8 +54,6 @@ export default function Delete(props) {
     </div>
   );
 }
-Delete.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+Delete.layout = "Admin";
 Delete.auth = true;
 

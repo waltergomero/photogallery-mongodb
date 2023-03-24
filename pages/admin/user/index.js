@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Spinner } from "@/components/Spinner";
 import { userService } from "@/services/user.service";
-import AdminLayout from "@/components/layout/admin";
 import UserTablePage from "./userTable";
 
 export default function UserPage() {
@@ -28,6 +27,4 @@ export default function UserPage() {
   );
 }
 
-UserPage.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+UserPage.layout = "Admin";

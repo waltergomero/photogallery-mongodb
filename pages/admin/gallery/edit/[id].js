@@ -23,4 +23,5 @@ export async function getServerSideProps({ params }) {
     props: { id: params.id },
   };
 }
+EditPage.layout = "Admin";
 EditPage.auth = true;

@@ -3,7 +3,6 @@ import { Spinner } from '@/components/Spinner';
 import { alertService } from '@/services/alert.service';
 import { userService } from '@/services/user.service';
 import AddEditUserPage from '../addedit';
-import AdminLayout from '@/components/layout/admin';
 
 export default function EditPage({ id }) {
     const [user, setUser] = useState(null);
@@ -29,6 +28,5 @@ export async function getServerSideProps({ params }) {
   }
 }
 
-EditPage.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+
+EditPage.layout = "Admin";

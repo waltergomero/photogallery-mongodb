@@ -195,4 +195,5 @@ export default function Upload() {
     </>
   );
 }
+Upload.layout = "Admin";
 Upload.auth = true;

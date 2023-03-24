@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import AdminLayout from "@/components/layout/admin";
 import { statusService } from "@/services/status.service";
 import { Spinner } from "@/components/Spinner";
 import StatusTable from "./statusTable";
@@ -40,7 +39,5 @@ export default function StatusPage(props) {
     </>
   );
 }
-StatusPage.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+StatusPage.layout = "Admin";
 StatusPage.auth = true;

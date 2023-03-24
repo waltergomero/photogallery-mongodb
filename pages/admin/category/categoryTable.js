@@ -1,5 +1,4 @@
 import Link from "next/link";
-import AdminLayout from "@/components/layout/admin";
 
 export default function CategoryTablePage(props) {
   const categories = props.data;
@@ -62,8 +61,6 @@ export default function CategoryTablePage(props) {
     </>
   );
 }
-CategoryTablePage.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+CategoryTablePage.layout = "Admin";
 CategoryTablePage.auth = true;
 

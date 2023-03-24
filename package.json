@@ -14,6 +14,7 @@
     "bcryptjs": "^2.4.3",
     "classnames": "^2.3.2",
     "express-jwt": "^8.4.1",
+    "lightgallery": "^2.7.1",
     "mongoose": "^7.0.2",
     "next": "13.2.4",
     "next-auth": "^4.20.1",

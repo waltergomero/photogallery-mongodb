@@ -1,5 +1,4 @@
 import react from 'react';
-import AdminLayout from '@/components/layout/admin';
 
 const AdminPage = () =>
 {
@@ -10,8 +9,6 @@ const AdminPage = () =>
     )
 }
 
-AdminPage.getLayout = function(page) {
-    return <AdminLayout>{page}</AdminLayout>;
-  };
 
+AdminPage.layout = "Admin";
 export default AdminPage;

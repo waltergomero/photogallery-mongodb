@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import AdminLayout from "@/components/layout/admin";
 
 const StatusTable = (props) => {
   const status = props.data;
@@ -58,9 +57,7 @@ const StatusTable = (props) => {
   );
 };
 
-StatusTable.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+StatusTable.layout = "Admin";
 export default StatusTable;
 StatusTable.auth = true;
 

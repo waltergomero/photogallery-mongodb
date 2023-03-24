@@ -3,7 +3,6 @@ import { Spinner } from "@/components/Spinner";
 import { categoryService } from "@/services/category.service";
 import CategoryTable from "./categoryTable";
 import Link from "next/link";
-import AdminLayout from "@/components/layout/admin";
 
 export default function CategoryPage() {
   const [categories, setCategories] = useState(null);
@@ -40,8 +39,6 @@ export default function CategoryPage() {
     </>
   );
 }
-CategoryPage.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+CategoryPage.layout = "Admin";
 CategoryPage.auth = true;
 

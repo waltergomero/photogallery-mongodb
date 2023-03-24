@@ -1,7 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router';
 import { userService } from '@/services/user.service'
-import AdminLayout from '@/components/layout/admin';
 
 export default function DeleteUserPage(props) {
     const user = props?.user;
@@ -56,6 +55,5 @@ export default function DeleteUserPage(props) {
        </>     
   )
 }
-DeleteUserPage.getLayout = function(page) {
-  return <AdminLayout>{page}</AdminLayout>;
-};
+
+DeleteUserPage.layout = "Admin";
