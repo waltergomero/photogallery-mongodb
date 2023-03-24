@@ -2,7 +2,7 @@ import getConfig from "next/config";
 import { fetchWrapper } from "@/helpers/fetch-wrapper";
 
 const { publicRuntimeConfig } = getConfig();
-const baseUrl = `${publicRuntimeConfig.apiUrl}/gallery`;
+const baseUrl = `${publicRuntimeConfig.apiUrl}/admin/gallery`;
 
 export const galleryService = {
   add,
@@ -36,7 +36,7 @@ function getImageInfoById(id) {
 }
 
 function getImagesByUserId(userid, categoryid) {
-  console.log(userid, categoryid);
+
   return fetchWrapper.get(
     `${baseUrl}?userid=${userid}&categoryid=${categoryid}`
   );

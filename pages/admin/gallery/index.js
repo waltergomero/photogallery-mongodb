@@ -14,7 +14,7 @@ export default function PhotoGalleryPage() {
       <button
         id="addphotos"
         onClick={addImageHandler}
-        className="px-6 py-1 text-white bg-blue-500 rounded-lg hover:bg-blue-500"
+        className="px-6 py-1 text-white bg-blue-500 rounded-lg hover:bg-blue-500 m-4"
       >
         Add Photos
       </button>

@@ -2,6 +2,9 @@ import Link from "next/link";
 
 export default function UserTablePage(props) {
   const users = props.data;
+  const isAdmin = localStorage.getItem("isAdmin");
+
+  console.log("is Admin: ", isAdmin)
   return (
     <>
       <div className="flex h-full flex-col rounded p-4 border border-indigo-200">
@@ -9,12 +12,13 @@ export default function UserTablePage(props) {
           Users
         </h5>
         <div>
+          {isAdmin === "true" ? 
           <Link
             href="/admin/user/addedit"
             className="px-4 py-1.5 bg-blue-600 text-white font-medium text-xs uppercase rounded"
           >
             Add User
-          </Link>
+          </Link> : ""}
         </div>
         <table className="border text-center mt-2 mb-4">
           <thead className="border-b bg-gray-100">
@@ -58,7 +62,8 @@ export default function UserTablePage(props) {
                   <td className="text-sm text-gray-900  px-6 py-1 whitespace-nowrap border-r">
                     {u.isAdmin === true? "Yes" : "No"}
                   </td>
-                  <td className="text-sm text-gray-900  px-6 py-1 whitespace-nowrap border-r">
+                  {isAdmin === "true" ? 
+                  <td className="text-sm text-gray-900  px-6 py-1 whitespace-nowrap border-r">               
                     <Link 
                       href={`/admin/user/edit/${u._id}`}
                       className="px-4 py-1 bg-blue-500 text-white font-medium text-xs  rounded"
@@ -72,7 +77,7 @@ export default function UserTablePage(props) {
                     >
                       Delete
                     </Link>
-                  </td>
+                  </td>  : ""}
                 </tr>
               ))}
           </tbody>

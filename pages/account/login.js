@@ -76,5 +76,5 @@ export default function LoginPage() {
 }
 
 
-
+LoginPage.layout = "Main";
 

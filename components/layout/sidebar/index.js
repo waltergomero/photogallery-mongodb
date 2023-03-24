@@ -11,8 +11,10 @@ import {
 import {
   AiOutlineBarChart,
   AiOutlineFileText,
+  AiOutlineUsergroupDelete,
 } from "react-icons/ai";
 import { RiDashboardFill } from "react-icons/ri";
+import {FaUsers} from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -22,14 +24,14 @@ export default function Sidebar() {
   const [submenuOpen, setSubmenuOpen] = useState(false);
 
   const Menus = [
-    { title: "Gallery", path: "/admin/gallery" },
+    { title: "Gallery", icon: <BsFillImageFill />, path: "/admin/gallery" },
     {
       title: "Categories",
       icon: <AiOutlineFileText />,
       path: "/admin/category",
     },
-    { title: "Status", icon: <BsFillImageFill />, path: "/admin/status" },
-    { title: "Users", icon: <AiOutlineBarChart />, path: "/admin/user" },
+    { title: "Status", icon: <RiDashboardFill />, path: "/admin/status" },
+    { title: "Users", icon: <FaUsers />, path: "/admin/user" },
     // {
     //   title: "Services",
     //   spacing: true,
@@ -139,6 +141,7 @@ export default function Sidebar() {
           </Fragment>
           
         ))}
+        <br/>
         <SignIn/>
       </ul>
 

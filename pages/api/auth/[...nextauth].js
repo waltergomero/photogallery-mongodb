@@ -9,6 +9,13 @@ export const authOptions = {
   session: {
     strategy: "jwt",
   },
+  pages: {
+    signIn: "/account/login",
+    //signOut: "/",
+    error: "/auth/error", // Error code passed in query string as ?error=
+    //verifyRequest: '/auth/verify-request', // (used for check email message)
+    // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user?._id) token._id = user._id;
@@ -34,6 +41,7 @@ export const authOptions = {
           email: credentials.email,
         });
 
+        console.log("user info: ", user);
         await db.disconnect();
 
         if (!user) {
@@ -45,8 +53,7 @@ export const authOptions = {
             first_name: user.first_name,
             last_name: user.last_name,
             email: user.email,
-            image: "fff",
-            isAdmin: user.isAdmin,
+            isAdmin: (user.isAdmin).toString(),
           };
         }
         throw new Error("The password submitted is incorrect.");

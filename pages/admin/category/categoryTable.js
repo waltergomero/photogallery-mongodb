@@ -2,9 +2,24 @@ import Link from "next/link";
 
 export default function CategoryTablePage(props) {
   const categories = props.data;
+  const isAdmin = localStorage.getItem("isAdmin");
 
   return (
     <>
+          <div className="flex h-full flex-col rounded p-4 border border-indigo-200">
+        <h5 className="text-dark text-lg leading-tight font-medium mb-2">
+          Categories
+        </h5>
+        <div>
+        {isAdmin === "true" ? 
+          <Link
+            href="/admin/category/addedit"
+            className="px-4 py-1.5 bg-blue-600 text-white font-medium text-xs uppercase rounded"
+          >
+            Add Category
+          </Link> : ""}
+        </div>
+
       <table className="border  mt-2 mb-4">
         <thead className=" border-b bg-gray-100">
           <tr>
@@ -39,6 +54,7 @@ export default function CategoryTablePage(props) {
                 <td className="text-sm text-gray-900  px-6 py-1 whitespace-nowrap border-r">
                   {c.status_name}
                 </td>
+                {isAdmin === "true" ? 
                 <td className="text-sm text-gray-900  px-6 py-1 whitespace-nowrap border-r">
                   <Link
                     href={`/admin/category/edit/${c._id}`}
@@ -53,11 +69,12 @@ export default function CategoryTablePage(props) {
                   >
                     Delete
                   </Link>
-                </td>
+                </td> : ""}
               </tr>
             ))}
         </tbody>
       </table>
+      </div>
     </>
   );
 }

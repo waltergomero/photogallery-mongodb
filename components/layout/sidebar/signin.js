@@ -1,8 +1,10 @@
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import { RiUser3Line, RiLogoutCircleLine } from "react-icons/ri";
 
 export default function Component() {
   const { data: session, status } = useSession();
+  console.log(session?.user)
 
   if (session) {
     if (typeof window !== "undefined") {
@@ -16,16 +18,22 @@ export default function Component() {
         {status === "loading" ? (
           "loading"
         ) : session?.user ? (
-         
+         <ul>
             <li>
-              <Link className="text-white mr-2 ml-6" href="/api/auth/signout">
-                Welcome {session?.user.first_name}!
+              <Link className="flex rounded-md p-2 cursor-pointer hover:bg-red-600 text-white text-sm  items-center gap-x-4" href="#">
+              <span className="text-xl block float-left">
+                   <RiUser3Line />
+                </span>{session?.user.first_name}'s profile
               </Link>
-              <Link className="text-white" href="/api/auth/signout">
-                Sign Out
+              </li>
+              <li>
+              <Link className="flex rounded-md p-2 cursor-pointer hover:bg-red-600 text-white text-sm  items-center gap-x-4" href="/api/auth/signout">
+              <span className="text-xl block float-left">
+                   <RiLogoutCircleLine />
+                </span>  Sign Out
               </Link>
             </li>
-        
+            </ul>
         ) : (
           ""
         )}

@@ -1,14 +1,15 @@
-import react from 'react';
+// pages/index.js
+import React from 'react';
+import Gallery from '../admin/gallery'
 
-const AdminPage = () =>
-{
-    return (
-        <>
-            <h1>Admin Page</h1>
-        </>
-    )
+const AdminPage = () => {
+  return (
+    <>
+    <Gallery/>
+    </>
+  )
 }
 
-
+export default AdminPage
 AdminPage.layout = "Admin";
-export default AdminPage;
+AdminPage.auth="true;"

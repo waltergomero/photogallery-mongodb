@@ -22,20 +22,7 @@ export default function StatusPage(props) {
   return (
     <>
       {!status && <Spinner />}
-      <div className="flex h-full flex-col rounded p-4 border border-indigo-200">
-        <h5 className="text-dark text-lg leading-tight font-medium mb-2">
-          Status
-        </h5>
-        <div>
-          <Link
-            href="/admin/status/addedit"
-            className="px-4 py-1.5 bg-blue-600 text-white font-medium text-xs uppercase rounded"
-          >
-            Add Status
-          </Link>
-        </div>
-        {statusContent}
-      </div>
+      {statusContent}
     </>
   );
 }
