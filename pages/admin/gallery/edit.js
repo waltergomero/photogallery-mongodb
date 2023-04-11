@@ -56,7 +56,6 @@ export default function Edit(props) {
   }
 
   const handleCategoryChange = (e) => {
-    console.log("category info: ", e.target)
     setSelCategoryValue(e.target.value);
   };
 

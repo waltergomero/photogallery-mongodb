@@ -4,8 +4,6 @@ import { RiUser3Line, RiLogoutCircleLine } from "react-icons/ri";
 
 export default function Component() {
   const { data: session, status } = useSession();
-  console.log(session?.user)
-
   if (session) {
     if (typeof window !== "undefined") {
       localStorage.setItem("user_email", session?.user.email);

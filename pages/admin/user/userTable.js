@@ -3,8 +3,6 @@ import Link from "next/link";
 export default function UserTablePage(props) {
   const users = props.data;
   const isAdmin = localStorage.getItem("isAdmin");
-
-  console.log("is Admin: ", isAdmin)
   return (
     <>
       <div className="flex h-full flex-col rounded p-4 border border-indigo-200">

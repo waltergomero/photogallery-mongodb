@@ -15,12 +15,10 @@ async function authenticate(req, res) {
     const user = await getData(email);
 
     if(!user){
-        console.log("use does not exists.");
         throw "User with this email doesn't exists.";}
 
     // validate
     if (!(user && bcrypt.compareSync(password, user.password))) {
-        console.log("something is incorrect");
         throw 'Email or password is incorrect';
     }
 
@@ -44,7 +42,6 @@ async function getData (email) {
         .then(result => {
             const data = JSON.parse(JSON.stringify(result));
             const user = data.rows[0];
-            console.log("returned user:", user)
             return Promise.resolve(user);
         });
         

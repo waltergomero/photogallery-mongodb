@@ -21,9 +21,7 @@ const LoginPage = ({ providers }) => {
     return accountService
       .login(email, password)
       .then((res) => {
-        console.log("response: ", res);
         if (res.ok) {
-          //console.log("url: ", router.query.returnUrl);
           const returnUrl = router.query.returnUrl || "/admin";
           router.push(returnUrl);
         } else {

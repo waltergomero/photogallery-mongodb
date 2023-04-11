@@ -25,6 +25,7 @@ const asynParse = (req) =>
 export default async function handler(req, res) {
   if (req.method === "POST") {
     const result = await asynParse(req);
+    console.log("results: ", result)
     var _path = create_folder(result.fields.user_id);
 
     const user_id = result.fields.user_id;

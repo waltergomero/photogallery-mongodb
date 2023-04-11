@@ -17,6 +17,5 @@ async function imagesByCategory(req, res) {
 
    const response = await conn.query(query);
    const data = response.rows;
-   console.log(data)
    return res.status(200).json(data);
 }

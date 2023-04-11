@@ -43,7 +43,6 @@ function getImagesByUserId(userid, categoryid) {
 }
 
 function update(id, params) {
-  console.log("galler srrtvice: ", id, params)
   return fetchWrapper.put(`${baseUrl}/editdelete/${id}`, params).then((x) => {
     return x;
   });

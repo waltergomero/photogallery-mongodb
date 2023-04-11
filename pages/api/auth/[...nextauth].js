@@ -40,8 +40,6 @@ export const authOptions = {
         const user = await User.findOne({
           email: credentials.email,
         });
-
-        console.log("user info: ", user);
         await db.disconnect();
 
         if (!user) {

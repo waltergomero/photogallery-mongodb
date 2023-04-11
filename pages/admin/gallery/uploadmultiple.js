@@ -9,7 +9,7 @@ import Compressor from "compressorjs";
 import { alertService } from "@/services/alert.service";
 import { categoryService } from "@/services/category.service";
 
-export default function Upload() {
+export default function UploadMultiple() {
   const router = useRouter();
   const [imageExtension, setImageExtension] = useState(null);
   const [compressedFile, setCompressedFile] = useState(null);
@@ -17,6 +17,7 @@ export default function Upload() {
   const [selCategoryValue, setSelCategoryValue] = useState("");
   const [selCategoryName, setSelCategoryName] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState(null);
 
   useEffect(() => {
     setErrorMessage(false);
@@ -24,7 +25,6 @@ export default function Upload() {
   }, []);
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required("Title is required."),
     _id: Yup.string().required("Category selection is required."),
   });
 
@@ -32,8 +32,12 @@ export default function Upload() {
   const { register, handleSubmit, formState } = useForm(formOptions);
   const { errors } = formState;
 
+  const uploadImagesHandler = (e) =>{
+    setSelectedFiles(Array.from(e.target.files))
+  }
+
   const handleCompressedUpload = (e) => {
-    const image = e.target.files[0];
+    const image = e
     const ext = image.name.substr(image.name.lastIndexOf(".") + 1);
 
     setImageExtension(ext);
@@ -49,9 +53,13 @@ export default function Upload() {
   };
 
   async function onSubmit(data) {
+    console.log("array:", selectedFiles);
     const userid = localStorage.getItem("user_id");
     const email = localStorage.getItem("email");
-    if (compressedFile != null) {
+
+    if (selectedFiles != null) {
+      selectedFiles.map((image, index) => {
+      handleCompressedUpload(image);
       const formdata = new FormData();
       formdata.append("user_id", userid);
       formdata.append("email", email);
@@ -61,20 +69,22 @@ export default function Upload() {
       formdata.append("description", data.description);
       formdata.append("image", compressedFile);
       formdata.append("extension", imageExtension);
-
       axios.post("/api/admin/gallery/add", formdata);
 
       alertService.success("Images were added successfully.", {
         keepAfterRouteChange: true,
+      
       });
+    })
       return router.push("/admin/gallery");
     } else {
       setErrorMessage(true);
     }
   }
 
-  const removeSelectedImage = () => {
-    setCompressedFile();
+  const removeSelectedImage = (e) => {
+    let _name = e.target.attributes['data-key'].value;
+    setSelectedFiles(image => image.filter(x => x.name != _name))
   };
 
   const handleCategoryChange = (e) => {
@@ -89,31 +99,15 @@ export default function Upload() {
 
   return (
     <>
-      <div className="flex h-full flex-col items-center">
-        <div className="columns-sm px-4 py-4 text-left bg-white shadow-lg rounded-md border border-indigo-200">
-          <div className="mt-4 md:mt-0 md:col-span-2">
+      <div className="flex h-full flex-col m-4">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div>
-                <input type="file" onChange={handleCompressedUpload} />
+                <input type="file" multiple onChange={uploadImagesHandler} />
                 {errorMessage && (
                   <div className="invalid-feedback text-sm font-small  text-red-500">
                     Please upload an image.
                   </div>
                 )}
-              </div>
-              <div>
-                <input
-                  name="title"
-                  {...register("title")}
-                  maxLength="48"
-                  type="text"
-                  placeholder="Title"
-                  className={`w-full px-4 py-1 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600
-                     ${errors.title ? "is-invalid" : ""}`}
-                />
-                <div className="invalid-feedback text-sm font-small text-red-500">
-                  {errors.title?.message}
-                </div>
               </div>
               <div>
                 <select
@@ -136,36 +130,18 @@ export default function Upload() {
                   {errors._id?.message}
                 </div>
               </div>
-
-              {compressedFile && (
-                <>
-                  <div className="flex justify-center mt-4 p-2 rounded-lg border border-gray-200">
-                    <img
-                      className="h-72 rounded-lg"
-                      src={URL.createObjectURL(compressedFile)}
-                      alt="uploaded Images"
-                    />
-                  </div>
-                  <div>
-                    <button
-                      onClick={removeSelectedImage}
-                      className={`w-full px-1 py-1 mb-2 text-white text-xs rounded-md bg-red-500`}
-                    >
-                      Remove this image
-                    </button>
-                    <textarea
-                      name="description"
-                      placeholder="Description"
-                      rows={2}
-                      cols={5}
-                      maxLength="48"
-                      className={`w-full px-1 py-1 mt-2 mb-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600`}
-                      {...register("description")}
-                    />
-                  </div>
-                </>
-              )}
-              <div className="px-4 py-1 text-right sm:px-6">
+              <div className=" mt-2 mb-4">
+              <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">  
+              {selectedFiles && selectedFiles?.map((file,index) => (  
+                            <img  key={index}
+                            className="rounded-md"
+                              data-key={file.name}
+                              onClick = {removeSelectedImage}                                 
+                              src={URL.createObjectURL(file)} alt="uploaded Images" />                                                                                                                                                      
+                  ))}
+              </div>
+              </div>
+              <div className="px-4 py-1 text-left sm:px-6">
                 <button
                   id="cancel"
                   onClick={handleCancel}
@@ -187,10 +163,8 @@ export default function Upload() {
               </div>
             </form>
           </div>
-        </div>
-      </div>
     </>
   );
 }
-Upload.layout = "Admin";
-Upload.auth = true;
+UploadMultiple.layout = "Admin";
+UploadMultiple.auth = true;

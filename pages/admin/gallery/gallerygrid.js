@@ -46,23 +46,23 @@ export default function GalleryGridPage() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
-              <div className="p-5">
+              <div className="p-2">
                 <h4 className="text-gray-700 text-sm font-semibold">
                   {item.title}
                 </h4>
                 <div className="flex flex-row my-3 text-xs">
                   <p className="text-gray-500">{item.description}</p>
                 </div>
-                <div className="flex flex-col xl:flex-row justify-between">
+                <div className="flex justify-between">
                   <Link
                     href={`/admin/gallery/edit/${item._id}`}
-                    className="rounded-full py-2 px-4 text-gray-500 flex flex-row justify-center mr-1 text-sm"
+                    className="rounded-full py-2 px-4 text-gray-500 text-sm"
                   >
                     <FaPencilAlt /> Edit
                   </Link>
                   <Link
                     href={`/admin/gallery/delete/${item._id}`}
-                    className=" rounded-full py-2 px-4 text-red-500 flex flex-row justify-center text-sm"
+                    className=" rounded-full py-2 px-4 text-red-500 text-sm"
                   >
                     <FaTrashAlt /> Delete
                   </Link>

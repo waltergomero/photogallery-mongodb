@@ -132,19 +132,14 @@ export default function Sidebar() {
                       {submenuItem.title}
                     </Link>
                   </li>
-                ))}
-                
-              </ul>
-              
-            )}
-   
-          </Fragment>
-          
+                ))}               
+              </ul>            
+            )}  
+          </Fragment>         
         ))}
         <br/>
         <SignIn/>
       </ul>
-
     </div>
   );
 }

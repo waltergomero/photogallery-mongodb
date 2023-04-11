@@ -19,7 +19,6 @@ function login(email, password) {
     password: password,
     callbackUrl: `${window.location.origin}`,
   }).then((user) => {
-    console.log("user account: ", user);
     return user;
   });
 }

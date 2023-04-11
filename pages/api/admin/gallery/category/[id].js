@@ -17,6 +17,5 @@ async function categoryList(req, res) {
    const value = [user_id];
    const response = await conn.query(query, value);
    const data = response.rows;
-   console.log(data)
    return res.status(200).json(data);
 }
