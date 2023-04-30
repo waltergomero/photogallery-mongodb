@@ -50,7 +50,7 @@ export default function Upload() {
 
   async function onSubmit(data) {
     const userid = localStorage.getItem("user_id");
-    const email = localStorage.getItem("email");
+    const email = localStorage.getItem("user_email");
     if (compressedFile != null) {
       const formdata = new FormData();
       formdata.append("user_id", userid);

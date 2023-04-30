@@ -2,6 +2,8 @@ import { apiHandler } from "@/helpers/api/api-handler";
 import db from "@/utils/db";
 import Gallery from "@/models/Gallery";
 
+const fs = require('fs')
+
 export default apiHandler({
   get: getImageInfoById,
   put: update,
@@ -37,10 +39,22 @@ async function update(req, res) {
 }
 
 async function _delete(req, res) {
+  const query_id = { _id: req.query.id };
   db.connect();
-  const query = { _id: req.query.id };
-  const result = await Gallery.deleteOne(query);
+  const imagepath = await Gallery.findOne(query_id)
+  const imageToDelete = "/public/" + imagepath.path_original;
+ // console.log("image path: ", imageToDelete);
+ try{
+   const result = await Gallery.deleteOne(query_id);
+    // fs.unlinkSync(imageToDelete);
+    db.disconnect();
+    
+    return res.status(200).json(result);
+ }
+ catch(err){
+   throw new Error("This image was not deleted.")
+ }
 
-  db.disconnect();
-  return res.status(200).json(result);
+
+
 }

@@ -1,5 +1,4 @@
 import { IncomingForm } from "formidable";
-import path from "path";
 import db from "@/utils/db";
 import Gallery from "@/models/Gallery";
 import Collection from "@/models/Collection";
@@ -25,7 +24,6 @@ const asynParse = (req) =>
 export default async function handler(req, res) {
   if (req.method === "POST") {
     const result = await asynParse(req);
-    console.log("results: ", result)
     var _path = create_folder(result.fields.user_id);
 
     const user_id = result.fields.user_id;
@@ -47,6 +45,8 @@ export default async function handler(req, res) {
 
     mv(oldPath, newPath, function (err) {});
 
+   
+
     const updatedPath = removeFirstWord(newPath);
 
     var sizeOf = require("image-size");
@@ -59,6 +59,19 @@ export default async function handler(req, res) {
     const categoryExistsInCollection = await checkIfCategoryExistsInCollection(
       category_id
     );
+
+    // console.log("image_name:", imageName);
+    // console.log("category_id:", category_id);
+    // console.log("category_name:", category_name);
+    // console.log("user_id:", user_id);
+    // console.log("email:", email);
+    // console.log("path_original:", updatedPath);
+    // console.log("path_reduced:", updatedPath);
+    // console.log("description:", description);
+    // console.log("islandscape:", islandscape);
+    // console.log("title:", title);
+    // console.log("width:", width);
+    // console.log("height:", height);
 
     const addPhotoToGallery = new Gallery({
       image_name: imageName,

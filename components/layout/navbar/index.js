@@ -14,7 +14,7 @@ export default function NavBar() {
             href="/"
             className="text-lg md:text-3xl font-bold ml-3 text-white"
           >
-            Kuntur Gallery
+            Dragon's Gallery
           </Link>
         </div>
 

@@ -39,7 +39,6 @@ export default function UploadMultiple() {
   const handleCompressedUpload = (e) => {
     const image = e
     const ext = image.name.substr(image.name.lastIndexOf(".") + 1);
-
     setImageExtension(ext);
 
     new Compressor(image, {
@@ -47,39 +46,46 @@ export default function UploadMultiple() {
       maxWidth: 1290,
       maxHeight: 1290,
       success: (compressedResult) => {
+        console.log("image compressed: ", compressedResult);
         setCompressedFile(compressedResult);
       },
     });
   };
 
   async function onSubmit(data) {
-    console.log("array:", selectedFiles);
     const userid = localStorage.getItem("user_id");
-    const email = localStorage.getItem("email");
+    const email = localStorage.getItem("user_email");
 
     if (selectedFiles != null) {
       selectedFiles.map((image, index) => {
-      handleCompressedUpload(image);
-      const formdata = new FormData();
-      formdata.append("user_id", userid);
-      formdata.append("email", email);
-      formdata.append("category_id", selCategoryValue);
-      formdata.append("category_name", selCategoryName);
-      formdata.append("title", data.title);
-      formdata.append("description", data.description);
-      formdata.append("image", compressedFile);
-      formdata.append("extension", imageExtension);
-      axios.post("/api/admin/gallery/add", formdata);
 
-      alertService.success("Images were added successfully.", {
-        keepAfterRouteChange: true,
-      
+        const ext = image.name.substr(image.name.lastIndexOf(".") + 1);
+        console.log("extension: ", ext);
+    
+        new Compressor(image, {
+          quality: 0.9, // 0.6 can also be used, but its not recommended to go below.
+          maxWidth: 1290,
+          maxHeight: 1290,
+          success: (result) => {
+            const formdata = new FormData();
+            formdata.append("user_id", userid);
+            formdata.append("email", email);
+            formdata.append("category_id", selCategoryValue);
+            formdata.append("category_name", selCategoryName);
+            formdata.append("title", "Enter Title");
+            formdata.append("description", "");
+            formdata.append("image", result);
+            formdata.append("extension", ext);
+            axios.post("/api/admin/gallery/add", formdata);
+          },
+        });      
       });
-    })
-      return router.push("/admin/gallery");
-    } else {
+    } 
+    else {
       setErrorMessage(true);
     }
+    return router.push("/admin/gallery");
+
   }
 
   const removeSelectedImage = (e) => {
